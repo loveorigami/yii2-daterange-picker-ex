@@ -1,13 +1,13 @@
 <?php
-/**
- * Date: 17.01.14
- * Time: 1:06
- */
-
 namespace lo\widgets\daterange;
 
 use yii\web\AssetBundle;
 
+/**
+ * Class MomentAsset
+ * @package lo\widgets\daterange
+ * @author Lukyanov Andrey <loveorigami@mail.ru>
+ */
 class MomentAsset extends AssetBundle
 {
     /**
@@ -27,10 +27,11 @@ class MomentAsset extends AssetBundle
             'min/tests.js'
         ]
     ];
+
     public function init()
     {
         $this->js[] = (YII_DEBUG) ? 'moment.js' : 'min/moment.min.js';
-        
+
         $localePath = \Yii::getAlias($this->sourcePath . DIRECTORY_SEPARATOR . 'locale');
         if (isset(static::$locale)) {
             $locale = strtolower(static::$locale);
@@ -38,7 +39,8 @@ class MomentAsset extends AssetBundle
             if (is_file($localePath . DIRECTORY_SEPARATOR . $locale . '.js')) {
                 $this->js[] = "locale/{$locale}.js";
             } elseif ($locale != $fallbackLocale
-                    && (is_file($localePath . DIRECTORY_SEPARATOR . $fallbackLocale . '.js'))) {
+                && (is_file($localePath . DIRECTORY_SEPARATOR . $fallbackLocale . '.js'))
+            ) {
                 $this->js[] = "locale/{$fallbackLocale}.js";
             }
         }
