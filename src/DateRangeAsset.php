@@ -14,7 +14,7 @@ class DateRangeAsset extends AssetBundle
      * @var string locale for moment.js
      */
     public static $locale;
-    public $sourcePath = '@bower/daterange-picker-ex/dist';
+    public $sourcePath = '@bower/jquery-date-range-picker/dist';
 
     public $css = [
         'daterangepicker.min.css'

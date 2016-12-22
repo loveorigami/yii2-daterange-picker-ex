@@ -28,6 +28,7 @@ class DateRangePicker extends InputWidget
      * @link http://www.daterangepicker.com/#options
      */
     public $pluginOptions;
+
     /**
      * @var array The HTML attributes for the input tag.
      */
@@ -74,6 +75,7 @@ class DateRangePicker extends InputWidget
         //$callback = (isset($this->callback)) ? ", {$this->callback}" : '';
 
         $script[] = "moment.locale('{$this->locale}');";
+        $script[] = "moment.format = '{$this->pluginOptions['format']}';";
         $script[] = "$('#{$this->getWid()}').dateRangePicker({$options});";
 
         $js = implode("\r\n", $script);
