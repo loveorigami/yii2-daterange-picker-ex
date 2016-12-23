@@ -38,8 +38,11 @@ class DateRangeInline extends DateRangePicker
         if ($id_from && $id_to) {
             $this->pluginOptions['setValue'] = new JsExpression("
                 function (s, s1, s2){
-                    $('#$id_from').val(s1).trigger('change');
-                    $('#$id_to').val(s2).trigger('change');
+                    $('#$id_from').val(s1);
+                    $('#$id_to').val(s2);
+                    if(s1!=s2){
+                        $('#$id_to').trigger('change');
+                    }
                 }
             ");
             $this->pluginOptions['getValue'] = new JsExpression("
@@ -49,8 +52,9 @@ class DateRangeInline extends DateRangePicker
                     var dateInit =  localStorage.getItem('date_to');
                     
                     if(!dateFrom){
-                        dateFrom = dateInit;
-                        dateTo = dateInit;
+                        var day = moment(dateInit).add(1, 'days').format(moment.format);
+                        dateFrom = day;
+                        dateTo = day;
                     }
                     
                     if (dateFrom && dateTo){
@@ -65,8 +69,7 @@ class DateRangeInline extends DateRangePicker
         $view = $this->getView();
         $view->registerJs("
             $('#$id_to').on('change', function(e){
-                 var nextDay = moment($(this).val()).add(1, 'days').format(moment.format);
-                 localStorage.setItem('date_to', nextDay);
+                 localStorage.setItem('date_to', $(this).val());
             });
         ", View::POS_END);
 
