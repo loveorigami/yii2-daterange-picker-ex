@@ -45,11 +45,12 @@ class DateRangeInline extends DateRangePicker
                     }
                 }
             ");
+
             $this->pluginOptions['getValue'] = new JsExpression("
                 function (){
                     var dateFrom = $('#$id_from').val();
                     var dateTo = $('#$id_to').val();
-                    var dateInit =  localStorage.getItem('date_to');
+                    var dateInit =  localStorage.getItem('date_from');
                     
                     if(!dateFrom){
                         var day = moment(dateInit).add(1, 'days').format(moment.format);
@@ -69,7 +70,7 @@ class DateRangeInline extends DateRangePicker
         $view = $this->getView();
         $view->registerJs("
             $('#$id_to').on('change', function(e){
-                 localStorage.setItem('date_to', $(this).val());
+                 localStorage.setItem('date_from', $(this).val());
             });
         ", View::POS_END);
 
