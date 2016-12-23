@@ -15,12 +15,12 @@ class DateRangeInline extends DateRangePicker
     /**
      * @var string
      */
-    public $fromAttr = 'date_from';
+    public $fromAttr;
 
     /**
      * @var string
      */
-    public $toAttr = 'date_to';
+    public $toAttr;
 
     /**
      * init widget
@@ -28,6 +28,7 @@ class DateRangeInline extends DateRangePicker
     public function init()
     {
         parent::init();
+
         $this->pluginOptions['container'] = '#' . $this->getWid();
         $this->pluginOptions['inline'] = true;
         $this->pluginOptions['alwaysOpen'] = true;
@@ -50,12 +51,12 @@ class DateRangeInline extends DateRangePicker
                 function (){
                     var dateFrom = $('#$id_from').val();
                     var dateTo = $('#$id_to').val();
-                    var dateInit =  localStorage.getItem('date_from');
-                    
+
                     if(!dateFrom){
-                        var day = moment(dateInit).add(1, 'days').format(moment.format);
-                        dateFrom = day;
-                        dateTo = day;
+                        var dateInit =  localStorage.getItem('date_from'); // 31.12.2016
+                        var dateNext = moment(dateInit, moment.format).add(1, 'days').format(moment.format);
+                        dateFrom = dateNext;
+                        dateTo = dateNext;
                     }
                     
                     if (dateFrom && dateTo){
